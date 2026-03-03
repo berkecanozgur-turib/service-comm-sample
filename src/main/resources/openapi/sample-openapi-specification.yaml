@@ -1,0 +1,245 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "internal",
+      "description": "Internal schema registration - do not use"
+    }
+  ],
+  "paths": {
+    "/internal/schema/sample": {
+      "post": {
+        "tags": [
+          "internal"
+        ],
+        "operationId": "configure",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SampleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SampleResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SampleRequest": {
+        "type": "object",
+        "description": "Sample request with various parameter types",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Sample code (unique identifier)",
+            "example": "SMP001",
+            "maxLength": 50,
+            "minLength": 0
+          },
+          "title": {
+            "type": "string",
+            "description": "Sample title",
+            "example": "Sample Title",
+            "maxLength": 200,
+            "minLength": 0
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Quantity value",
+            "example": 100,
+            "maximum": 10000,
+            "minimum": 1
+          },
+          "price": {
+            "type": "number",
+            "description": "Price amount",
+            "example": "99.99",
+            "minimum": 0.01
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Active status",
+            "example": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Start date",
+            "example": "2026-03-01"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category",
+            "enum": [
+              "ELECTRONICS",
+              "CLOTHING",
+              "FOOD",
+              "BOOKS",
+              "SPORTS",
+              "OTHER"
+            ],
+            "example": "ELECTRONICS"
+          },
+          "tags": {
+            "type": "array",
+            "description": "List of tags",
+            "example": [
+              "tag1",
+              "tag2"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "minItems": 0
+          }
+        },
+        "required": [
+          "active",
+          "category",
+          "code",
+          "price",
+          "quantity",
+          "startDate",
+          "title"
+        ]
+      },
+      "SampleDetails": {
+        "type": "object",
+        "description": "Sample details information",
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Quantity",
+            "example": 100
+          },
+          "price": {
+            "type": "number",
+            "description": "Price",
+            "example": "99.99"
+          },
+          "totalAmount": {
+            "type": "number",
+            "description": "Total amount",
+            "example": "9999.00"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category",
+            "enum": [
+              "ELECTRONICS",
+              "CLOTHING",
+              "FOOD",
+              "BOOKS",
+              "SPORTS",
+              "OTHER"
+            ],
+            "example": "ELECTRONICS"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Active status",
+            "example": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Start date",
+            "example": "2026-03-01"
+          }
+        }
+      },
+      "SampleMetadata": {
+        "type": "object",
+        "description": "Sample metadata information",
+        "properties": {
+          "tags": {
+            "type": "array",
+            "description": "Tags list",
+            "example": [
+              "tag1",
+              "tag2"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp",
+            "example": "2026-03-03T10:30:00"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp",
+            "example": "2026-03-03T10:30:00"
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "Created by user",
+            "example": "admin"
+          }
+        }
+      },
+      "SampleResponse": {
+        "type": "object",
+        "description": "Sample response with nested structure",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sample ID",
+            "example": 1
+          },
+          "code": {
+            "type": "string",
+            "description": "Sample code",
+            "example": "SMP001"
+          },
+          "title": {
+            "type": "string",
+            "description": "Sample title",
+            "example": "Sample Title"
+          },
+          "details": {
+            "$ref": "#/components/schemas/SampleDetails",
+            "description": "Sample details"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/SampleMetadata",
+            "description": "Sample metadata"
+          }
+        }
+      }
+    }
+  }
+}

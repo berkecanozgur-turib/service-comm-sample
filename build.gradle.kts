@@ -2,6 +2,8 @@ plugins {
 	java
 	id("org.springframework.boot") version "4.0.3"
 	id("io.spring.dependency-management") version "1.1.7"
+    id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
+    id("io.swagger.core.v3.swagger-gradle-plugin") version "2.2.44"
 }
 
 group = "org.comm"
@@ -25,6 +27,16 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
+
+openApi {
+    outputDir.set(file("src/main/resources/openapi"))
+    outputFileName.set("${project.name}-openapi-specification.yaml")
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks.named("build") {
+    dependsOn("generateOpenApiDocs")
 }
