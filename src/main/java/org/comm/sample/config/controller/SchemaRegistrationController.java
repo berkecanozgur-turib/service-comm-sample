@@ -1,6 +1,5 @@
 package org.comm.sample.config.controller;
 
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.comm.sample.dto.SampleRequest;
 import org.comm.sample.dto.SampleResponse;
