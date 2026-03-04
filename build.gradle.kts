@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "org.comm"
-version = "0.0.1-SNAPSHOT"
+version = project.property("version") as String? ?: "0.0.1-SNAPSHOT"
 description = "Common Sample Objects Project"
 
 java {
