@@ -46,6 +46,7 @@ publishing {
     publications {
         create<MavenPublication>("openApiSpec") {
             artifact(file("src/main/resources/openapi/sample-openapi-specification.yaml")) {
+                classifier = "openapi"
                 extension = "yaml"
             }
             pom {
