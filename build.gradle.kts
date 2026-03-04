@@ -45,9 +45,6 @@ tasks.named("build") {
 publishing {
     publications {
         create<MavenPublication>("openApiSpec") {
-            artifact(tasks.named<Jar>("jar")) {
-                classifier = "openapi-spec"
-            }
             artifact(file("src/main/resources/openapi/sample-openapi-specification.yaml")) {
                 extension = "yaml"
             }
