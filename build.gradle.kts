@@ -4,10 +4,11 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.7"
     id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
     id("io.swagger.core.v3.swagger-gradle-plugin") version "2.2.44"
+    id("maven-publish")
 }
 
 group = "org.comm"
-version = "0.0.1-SNAPSHOT"
+version = project.property("version") as String? ?: "0.0.1-SNAPSHOT"
 description = "Common Sample Objects Project"
 
 java {
@@ -39,4 +40,29 @@ tasks.withType<Test> {
 
 tasks.named("build") {
     dependsOn("generateOpenApiDocs")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("openApiSpec") {
+            artifact(file("src/main/resources/openapi/sample-openapi-specification.yaml")) {
+                classifier = "openapi"
+                extension = "yaml"
+            }
+            pom {
+                name.set("sample-openapi-specification")
+                description.set("OpenAPI specification for sample project")
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/${System.getenv("GITHUB_REPOSITORY") ?: "berkecanozgur/sample"}")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
 }
